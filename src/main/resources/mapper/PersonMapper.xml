@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hong.springbootstudy12demo.demos.web.mapper.PersonMapper">
+
+    <select id="queryPerson" resultType="com.hong.springbootstudy12demo.demos.web.User">
+        SELECT
+        nt.full_name name,
+        p.age
+        FROM
+        person p
+        LEFT JOIN name_tl nt ON nt.`name` = p.`name`
+        AND nt.lang = 'zh_CN'
+    </select>
+
+</mapper>
