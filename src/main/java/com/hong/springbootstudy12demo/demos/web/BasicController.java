@@ -18,6 +18,7 @@ package com.hong.springbootstudy12demo.demos.web;
 
 import com.hong.springbootstudy12demo.demos.web.mapper.PersonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,9 @@ public class BasicController {
 
     @Autowired
     private PersonMapper personMapper;
+
+    @Autowired
+    private Environment environment;
 
     // http://127.0.0.1:8080/hello?name=lisi
     @RequestMapping("/hello")
