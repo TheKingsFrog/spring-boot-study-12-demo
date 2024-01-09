@@ -3,6 +3,8 @@ package com.hong.springbootstudy12demo.demos.web.test;
 import com.hong.springbootstudy12demo.demos.web.User;
 import com.hong.springbootstudy12demo.demos.web.test.tool.TypedStringValueToIntegerConvertor;
 import com.hong.springbootstudy12demo.demos.web.test.tool.TypedStringValueToIntegerConvertor2;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +21,22 @@ import org.springframework.core.ResolvableType;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.ConverterRegistry;
 import org.springframework.core.convert.support.DefaultConversionService;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,6 +146,48 @@ public class BeanUtilsTest {
         logger.info("get as Map => {}", resolvableType.asMap());
         logger.info("get as Collection => {}", resolvableType.asCollection());
         logger.info("it's array? => {}", resolvableType.isArray());
+    }
+
+    @Test
+    public void testUrl() throws IOException {
+
+        Resource resource = new UrlResource("https://dldir1.qq.com/music/clntupate/QQMusic_Setup_Home.exe");
+        // 获取流
+        InputStream inputStream = resource.getInputStream();
+
+        // 嫌上面麻烦的，可以采用下面这种形式
+        FileUtils.copyInputStreamToFile(inputStream, new File("D://QQMusic/QQMusic_Setup_Home.exe"));
+
+    }
+
+    @Test
+    public void testFileSystemResource() throws IOException {
+        Resource resource = new FileSystemResource("D://QQMusic/QQMusic_Setup_Home.exe");
+        InputStream inputStream = resource.getInputStream();
+        IOUtils.copy(inputStream, new FileOutputStream("D://QQMusic2/QQMusic_Setup_Home.exe"));
+    }
+
+    @Test
+    public void testClasspathResource() throws IOException {
+        Resource resource = new ClassPathResource("bean.xml");
+        InputStream inputStream = resource.getInputStream();
+        byte[] bytes = new byte[1024];
+        int len;
+        while ((len = inputStream.read(bytes)) > -1) {
+            logger.info(new String(bytes, 0, len));
+        }
+
+    }
+
+    @Test
+    public void testPathMatchingResourcePatternResolver() throws IOException {
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource resource = resolver.getResource("https://dldir1.qq.com/music/clntupate/QQMusic_Setup_Home.exe");
+        Resource xmlResource = resolver.getResource("classpath:bean.xml");
+        Resource[] xmlResources = resolver.getResources("classpath*:META-INF/spring.factories");
+        for (Resource xmlResource1 : xmlResources) {
+            logger.info("xml resource:{}", xmlResource1);
+        }
     }
 
 
