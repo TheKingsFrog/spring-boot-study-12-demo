@@ -36,9 +36,28 @@ public class RuleService {
 
             List<BaseRule> baseRules = item.getValue();
 
+            switch (item.getKey()) {
 
-
+                case AND:
+                    // 如果是and关系，同步执行
+                    System.out.println("execute key = " + 1);
+                    if (!and(ruleDTO, baseRules)) {
+                        return false;
+                    }
+                    break;
+                case OR:
+                    // 如果是or关系，并行执行
+                    System.out.println("execute key = " + 0);
+                    if (!or(ruleDTO, baseRules)) {
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
+
+        return true;
 
     }
 
@@ -55,7 +74,15 @@ public class RuleService {
 
     private boolean or(RuleDTO ruleDTO, List<BaseRule> baseRules) {
 
-
+        for (BaseRule baseRule : baseRules) {
+            boolean execute = baseRule.execute(ruleDTO);
+            if (execute) {
+                // or 关系匹配到一个就返回 true
+                return true;
+            }
+        }
+        // or 关系一个都不匹配就返回false
+        return false;
 
     }
 

@@ -12,7 +12,7 @@ public class NationalityRule extends AbstractRule {
 
         NationalityRuleDTO nationalityRuleDTO = new NationalityRuleDTO();
 
-        if(ruleDTO.getAddress().startsWith(MATCH_ADDRESS_START)) {
+        if (ruleDTO.getAddress().startsWith(MATCH_ADDRESS_START)) {
             nationalityRuleDTO.setNationality(MATCH_NATIONALITY_START);
         }
 
