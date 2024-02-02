@@ -16,6 +16,8 @@
 
 package com.hong.springbootstudy12demo.demos.web;
 
+import com.hong.springbootstudy12demo.demos.web.listener.entity.Person;
+import com.hong.springbootstudy12demo.demos.web.listener.entity.PersonEvent;
 import com.hong.springbootstudy12demo.demos.web.mapper.PersonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -76,6 +78,16 @@ public class BasicController {
     @RequestMapping("/html")
     public String html(){
         return "index.html";
+    }
+
+    @RequestMapping("/publishEvent")
+    @ResponseBody
+    public PersonEvent addOrUpdateUser(){
+
+        Person person = new Person("hcl");
+        PersonEvent personEvent = new PersonEvent(person, "add");
+
+        return personEvent;
     }
 
     @ModelAttribute
