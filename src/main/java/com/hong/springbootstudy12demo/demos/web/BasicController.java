@@ -19,6 +19,7 @@ package com.hong.springbootstudy12demo.demos.web;
 import com.hong.springbootstudy12demo.demos.web.listener.entity.Person;
 import com.hong.springbootstudy12demo.demos.web.listener.entity.PersonEvent;
 import com.hong.springbootstudy12demo.demos.web.mapper.PersonMapper;
+import com.hong.springbootstudy12demo.demos.web.spring.TestPublishEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,9 @@ import java.util.List;
  */
 @Controller
 public class BasicController {
+
+    @Autowired
+    private TestPublishEvent testPublishEvent;
 
     @Autowired
     private PersonMapper personMapper;
@@ -96,4 +100,15 @@ public class BasicController {
         user.setName("zhangsan");
         user.setAge(18);
     }
+
+    @RequestMapping("/publishTest")
+    @ResponseBody
+    public void publishTest(){
+
+        for (int i = 0; i < 5; i++) {
+            testPublishEvent.publish("洪成隆测试，当前循环：" + i);
+        }
+
+    }
+
 }
