@@ -1,5 +1,6 @@
-package com.hong.springbootstudy12demo.demos.web.listener.entity;
+package com.hong.springbootstudy12demo.demos.web.event;
 
+import com.hong.springbootstudy12demo.demos.web.listener.entity.Person;
 import lombok.Data;
 
 @Data

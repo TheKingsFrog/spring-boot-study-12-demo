@@ -1,4 +1,4 @@
-package com.hong.springbootstudy12demo.demos.web.spring;
+package com.hong.springbootstudy12demo.demos.web.event;
 
 import lombok.Data;
 import org.springframework.context.ApplicationEvent;

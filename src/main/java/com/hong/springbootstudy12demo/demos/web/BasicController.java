@@ -16,11 +16,14 @@
 
 package com.hong.springbootstudy12demo.demos.web;
 
+import com.hong.springbootstudy12demo.demos.web.event.BaseEvent;
+import com.hong.springbootstudy12demo.demos.web.listener.entity.Order;
 import com.hong.springbootstudy12demo.demos.web.listener.entity.Person;
-import com.hong.springbootstudy12demo.demos.web.listener.entity.PersonEvent;
+import com.hong.springbootstudy12demo.demos.web.event.PersonEvent;
 import com.hong.springbootstudy12demo.demos.web.mapper.PersonMapper;
 import com.hong.springbootstudy12demo.demos.web.spring.TestPublishEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,6 +44,9 @@ public class BasicController {
 
     @Autowired
     private PersonMapper personMapper;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Autowired
     private Environment environment;
@@ -86,12 +92,9 @@ public class BasicController {
 
     @RequestMapping("/publishEvent")
     @ResponseBody
-    public PersonEvent addOrUpdateUser(){
-
-        Person person = new Person("hcl");
-        PersonEvent personEvent = new PersonEvent(person, "add");
-
-        return personEvent;
+    public void addOrUpdateUser(){
+        applicationContext.publishEvent(new BaseEvent(new Person("hcl"), "add"));
+        applicationContext.publishEvent(new BaseEvent(new Order("hcl-order"), "update"));
     }
 
     @ModelAttribute
