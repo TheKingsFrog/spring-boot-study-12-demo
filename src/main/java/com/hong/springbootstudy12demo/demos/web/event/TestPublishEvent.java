@@ -1,4 +1,4 @@
-package com.hong.springbootstudy12demo.demos.web.spring;
+package com.hong.springbootstudy12demo.demos.web.event;
 
 import com.hong.springbootstudy12demo.demos.web.event.TestApplicationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
