@@ -3,7 +3,8 @@ package com.hong.springbootstudy12demo.demos.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+// 跟UserFactoryBean冲突了 先注释
+//@Configuration
 public class MyConfiguration {
 
     @Bean
