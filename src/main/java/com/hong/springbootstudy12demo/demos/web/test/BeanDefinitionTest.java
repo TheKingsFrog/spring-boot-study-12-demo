@@ -1,16 +1,13 @@
 package com.hong.springbootstudy12demo.demos.web.test;
 
-import com.hong.springbootstudy12demo.demos.web.Dog;
+import com.hong.springbootstudy12demo.demos.web.entity.Dog;
 import com.hong.springbootstudy12demo.demos.web.MyConfiguration;
-import com.hong.springbootstudy12demo.demos.web.TeddyDog;
-import com.hong.springbootstudy12demo.demos.web.User;
+import com.hong.springbootstudy12demo.demos.web.entity.TeddyDog;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.asm.ClassReader;
 import org.springframework.beans.MutablePropertyValues;
-import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
-import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.support.*;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -20,10 +17,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.Document;
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
 import java.io.IOException;
 import java.util.Arrays;
 

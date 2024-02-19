@@ -4,12 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dog" class="com.hong.springbootstudy12demo.demos.web.Dog">
+    <bean id="dog" class="com.hong.springbootstudy12demo.demos.web.entity.Dog">
         <property name="color" value="white and black"/>
         <property name="age" value="15"/>
     </bean>
 
-    <bean id="teddy" class="com.hong.springbootstudy12demo.demos.web.TeddyDog" parent="dog">
+    <bean id="teddy" class="com.hong.springbootstudy12demo.demos.web.entity.TeddyDog" parent="dog">
         <property name="name" value="white and black"/>
     </bean>
 
