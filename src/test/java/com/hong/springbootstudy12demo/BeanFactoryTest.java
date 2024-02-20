@@ -1,6 +1,8 @@
 package com.hong.springbootstudy12demo;
 
 import com.hong.springbootstudy12demo.demos.web.User;
+import com.hong.springbootstudy12demo.demos.web.applicationContext.MyGenericApplicationContext;
+import com.hong.springbootstudy12demo.demos.web.entity.TeddyDog;
 import com.hong.springbootstudy12demo.demos.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.InstantiationStrategy;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Random;
 
@@ -90,5 +94,31 @@ public class BeanFactoryTest {
         System.out.println(instantiationStrategy.instantiate(beanDefinition, "user", defaultListableBeanFactory));
 
     }
+
+    /**
+     * 测试注册shutdown钩子函数
+     */
+    @Test
+    public void test4() throws InterruptedException {
+
+        MyGenericApplicationContext myGenericApplicationContext = new MyGenericApplicationContext();
+        myGenericApplicationContext.registerShutdownHook();
+        System.out.println("开始。。。");
+        Thread.sleep(2000);
+        System.out.println("结束。。。");
+
+    }
+
+    /**
+     * 测试xml ApplicationContext
+     */
+    @Test
+    public void test5() {
+        GenericApplicationContext genericApplicationContext = new GenericXmlApplicationContext("classpath:bean.xml");
+        TeddyDog teddy = (TeddyDog) genericApplicationContext.getBean("teddy");
+        log.info("bean.xml===>{}", teddy);
+
+    }
+
 
 }

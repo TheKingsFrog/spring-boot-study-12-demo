@@ -10,6 +10,3 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package:
-logging:
-  level:
-    root: trace
