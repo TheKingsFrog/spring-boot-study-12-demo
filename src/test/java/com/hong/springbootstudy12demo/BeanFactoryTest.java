@@ -120,5 +120,17 @@ public class BeanFactoryTest {
 
     }
 
+    /**
+     * 测试重复刷新 GenericApplicationContext
+     */
+    @Test
+    public void test6() {
+        GenericApplicationContext genericApplicationContext = new GenericXmlApplicationContext("classpath:bean.xml");
+        log.info("refresh before==>{}", genericApplicationContext);
+        // GenericApplicationContext does not support multiple refresh attempts: just call 'refresh' once
+        genericApplicationContext.refresh();
+        log.info("refresh after==>{}", genericApplicationContext);
+    }
+
 
 }
