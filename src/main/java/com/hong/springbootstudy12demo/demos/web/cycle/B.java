@@ -3,7 +3,7 @@ package com.hong.springbootstudy12demo.demos.web.cycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("hcl")
+@Component
 public class B {
 
     private A a;
