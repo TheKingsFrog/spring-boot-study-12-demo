@@ -10,6 +10,8 @@ import com.hong.springbootstudy12demo.demos.web.proxy.service.impl.UserServiceIm
 import com.hong.springbootstudy12demo.demos.web.proxy.util.ProxyUtil;
 import org.junit.Test;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,18 +23,13 @@ public class ProxyTest {
     @Test
     public void test() {
 
-        Object o = new A();
-
-        // construct wrapper
-        TraceHandler traceHandler = new TraceHandler(o);
-
-        // construct proxy for one or more interfaces
-        Object proxy = Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{Comparable.class}, traceHandler);
-
         Object[] objects = new Object[1000];
 
         for (int i = 0; i < objects.length; i++) {
             Integer var = i + 1;
+            // construct wrapper
+            TraceHandler traceHandler = new TraceHandler(var);
+            // construct proxy for one or more interfaces
             objects[i] = Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{Comparable.class}, traceHandler);
         }
 
