@@ -1,6 +1,7 @@
 package com.hong.springbootstudy12demo.demos.web.postprocessor;
 
-import com.hong.springbootstudy12demo.demos.web.cycle.A;
+import com.hong.springbootstudy12demo.demos.web.customtargetsourcecreator.MyCustomTargetSourceCreator;
+import org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.PriorityOrdered;
@@ -21,16 +22,22 @@ public class MyBeanPostProcessor implements BeanPostProcessor, PriorityOrdered {
 //        if("a".equals(beanName)) {
 //            return new A();
 //        }
+
         // 2024年3月2日 20点45分 被我找着了吧↑ 一行一行debug出来的
         // Error creating bean with name 'a': Bean with name 'a' has been injected into other beans [b] in its raw version as part of a circular reference,
         // but has eventually been wrapped. This means that said other beans do not use the final version of the bean. This is often the result of over-eager
         // type matching - consider using 'getBeanNamesForType' with the 'allowEagerInit' flag turned off, for example.
+
+        if (bean instanceof AbstractAutoProxyCreator) {
+            ((AbstractAutoProxyCreator) bean).setCustomTargetSourceCreators(new MyCustomTargetSourceCreator());
+        }
+
         System.out.println("洪成隆beanName====>postProcessAfterInitialization");
         return bean;
     }
 
     @Override
     public int getOrder() {
-        return 0;
+        return -999;
     }
 }
