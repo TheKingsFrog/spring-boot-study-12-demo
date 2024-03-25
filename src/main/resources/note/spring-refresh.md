@@ -19,3 +19,21 @@
 初始化资源
 
 `initPropertySources()`：该方法是预留的扩展方法
+
+springboot默认会走进`org.springframework.web.context.support.GenericWebApplicationContext#initPropertySources`
+
+①获取环境`getEnvironment()`
+
+这时候拿到的Environment是ApplicationServletEnvironment，在`getOrCreateEnvironment`的时候就调用过getEnvironment了
+
+getorCreateEnvironment：调用的是GenericWebApplicationContext的createEnvironment，返回`ApplicationServletEnvironment`
+
+为什么会返回`ApplicationServletEnvironment`？
+
+--因为springboot启动时run方法里一开始会实例化SpringApplication，里面有一个`WebApplicationType.deduceFromClasspath()`，里面会判断后返回`WebApplicationType.SERVLET`。
+
+这个枚举会在`getOrCreateEnvironment`方法用于判断返回`ApplicationServletEnvironment`。该类是`StandardServletEnvironment`的子类
+
+校验需要的资源
+
+`getEnvironment().validateRequiredProperties()`：
