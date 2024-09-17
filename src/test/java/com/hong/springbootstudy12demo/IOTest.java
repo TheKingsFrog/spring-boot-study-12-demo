@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
+import java.util.zip.GZIPInputStream;
 
 @Log4j2
 @SpringBootTest
@@ -107,8 +108,44 @@ public class IOTest {
 
         int data;
 
+        // reset，重新开始读
+//        for (int i = 0; i < 10; i++) {
+//            System.out.print((char) byteArrayInputStream.read());
+//            byteArrayInputStream.reset();
+//        }
+
         while ((data = byteArrayInputStream.read()) != -1) {
             System.out.print((char) data);
+        }
+
+        // 底层调用的read方法是native，C语言写的
+
+    }
+
+    @Test
+    public void testPushBackInputStream() {
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream("F:\\Java Project\\spring-boot-study-12-demo\\src\\main\\resources\\static\\example.txt");
+
+            PushbackInputStream pushbackInputStream = new PushbackInputStream(fileInputStream);
+
+            int data;
+
+            while ((data = pushbackInputStream.read() ) != -1) {
+
+                if ('e' == (char) data) {
+                    System.out.println("scan e, continue");
+                    // 这一步会无限循环
+                    pushbackInputStream.unread(data);
+                }
+
+                System.out.println("read:" + data);
+
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }
