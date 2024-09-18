@@ -150,4 +150,25 @@ public class IOTest {
 
     }
 
+    @Test
+    public void testBufferedInputStreamReadLine() {
+
+        try {
+
+            FileReader fileReader = new FileReader("F:\\Java Project\\spring-boot-study-12-demo\\src\\main\\resources\\static\\example.txt");
+
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String print;
+
+            while ((print = bufferedReader.readLine()) != null) {
+                System.out.println(print);
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
